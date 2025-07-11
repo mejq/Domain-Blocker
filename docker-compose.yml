@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: blocked_domains
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mejo
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  backend:
+    build: ./backend
+    container_name: springboot-backend
+    restart: always
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/blocked_domains
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: mejo
+    ports:
+      - "8080:8080"
+    volumes:
+      - /home/mejo/.ssh/id_rsa_jsch:/home/mejo/.ssh/id_rsa_jsch:ro
+
+  frontend:
+    build: ./frontend
+    container_name: angular-frontend
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      - "4200:80"
+
+volumes:
+  postgres_data:

@@ -1,0 +1,24 @@
+# ───── Backend (Spring Boot) ─────
+backend/target/
+backend/.idea/
+backend/.classpath
+backend/.project
+backend/.settings/
+backend/*.iml
+
+# ───── Frontend (Angular) ─────
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/cache/
+frontend/.env
+frontend/.idea/
+
+# ───── Docker / Ortak ─────
+*.log
+*.env
+.env.*
+docker-compose.override.yml
+
+# ───── Sistem dosyaları ─────
+.DS_Store
+Thumbs.db
