@@ -5,7 +5,7 @@ module.exports = withNativeFederation({
   name: 'micro2',
 
   exposes: {
-    './Component': './src/app/domain-list.component.ts',
+    './Component': 'micro2/src/app/domain-list.component.ts',
   },
 
   shared: {
