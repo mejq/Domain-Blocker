@@ -1,0 +1,15 @@
+
+<router-outlet>
+  <main>
+    <header class="brand-name">
+Micro-1
+    </header>
+    <section class="content">
+      <form [formGroup]="domainForm" (ngSubmit)="addDomain()">
+        <h4>Domain Block</h4>
+        <input #domainInput type="text" formControlName="domain" placeholder="Enter domain"/>
+        <button type="submit" [disabled]="domainForm.invalid">Add</button>
+      </form>
+    </section>
+  </main>
+</router-outlet>

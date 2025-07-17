@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../micro1/src/app/app.routes.ts"],
+  "sourcesContent": ["import { loadRemoteModule } from '@angular-architects/native-federation';\nimport { Routes } from '@angular/router';\nimport {App} from './add-domain.component';\n\nexport const routes: Routes = [\n  {\n    path: 'app',\n    // :App,\n    loadComponent: () => import('./add-domain.component').then(m => m.App),\n  },\n  {\n    path: '',\n    redirectTo: 'app',\n    pathMatch: 'full'\n  }\n];\n"],
+  "mappings": ";;;;;AAIO,IAAM,SAAiB;EAC5B;IACE,MAAM;;IAEN,eAAe,MAAM,OAAO,gBAAwB,EAAE,KAAK,OAAK,EAAE,GAAG;;EAEvE;IACE,MAAM;IACN,YAAY;IACZ,WAAW;;;",
+  "names": []
+}
