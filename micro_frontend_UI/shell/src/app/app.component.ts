@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {  //viewchild HTML sablonunaki bir 
   allowedOrigins = ['http://localhost:4201', 'http://localhost:4202'];
 
   ngOnInit() {
-    window.addEventListener('message', this.handleMessageFromMfe.bind(this));
+    window.addEventListener('message', this.handleMessageFromMfe.bind(this)); //postmessage dinliyor
   }
 
   handleMessageFromMfe(event: MessageEvent) {

@@ -13,7 +13,6 @@ import {RouterOutlet} from '@angular/router';
 })
 export class AppComponent{
   title = 'mfe1';
-
   domainForm: FormGroup;
   constructor(
     private fb: FormBuilder,
@@ -34,6 +33,6 @@ export class AppComponent{
     window.parent.postMessage({ //parent shellimiz
         type: 'add-domain',
         domain: domainValue
-      }, 'http://localhost:4200')
+    }, 'http://localhost:4200')
   }
 }

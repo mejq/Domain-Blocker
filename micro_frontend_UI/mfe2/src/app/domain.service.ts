@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {observable, Observable} from 'rxjs';
+import {Observable} from 'rxjs';
 
 export interface BlockedDomain {
   id: string;
@@ -12,7 +12,7 @@ export interface BlockedDomain {
 })
 export class DomainBlockService {
   domains: BlockedDomain[] = [];
-  private apiUrl = 'http://localhost:8080/api/domain-block'; // Backend URL'inizi buraya yazın
+  private apiUrl = 'http://localhost:8080/api/domain-block';
 
   constructor(private http: HttpClient) {}
 

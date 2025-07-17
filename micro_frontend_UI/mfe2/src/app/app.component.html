@@ -1,25 +1,42 @@
-<main>
+<main xmlns="http://www.w3.org/1999/html">
   <header class="brand-name">Micro 2
   </header>
   <section class="content">
+    <div>
     <button (click)="loadBlockedDomains()">Refresh Domains</button>
-    <h4>Blocked Domains</h4>
-    <table border="1" style="border-collapse: collapse;">
-      <thead>
-      <tr>
-        <th>Domain</th>
-        <th>Applied At</th>
-        <th></th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let domain of domains">
-        <td>{{ domain.domainName }}</td>
-        <td>{{domain.appliedAt}}</td>
-        <td><button (click)="removeDomain(domain)">Remove</button></td>
-      </tr>
-      </tbody>
-    </table>
-    <p *ngIf="message">{{ message }}</p>
+
+    <mat-table  matSort [dataSource]="dataSource" cdkDropListGroup cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="tableDrop($event)">
+
+      <ng-container *ngFor="let column of columns; let i = index"  [matColumnDef]="column.field">
+
+        <mat-header-cell mat-sort-header *matHeaderCellDef cdkDrag cdkDragLockAxis="x" cdkDragBoundary="mat-header-row">
+          {{column.header1}}
+        </mat-header-cell>
+
+        <mat-cell *matCellDef="let row">{{ row[column.field] }}</mat-cell>
+
+      </ng-container>
+      <ng-container matColumnDef="expandedDetail">
+        <mat-cell *matCellDef="let detail">
+          Remove
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"
+
+               class="element-row"
+               [class.expanded]="expandedElement == row"
+               (click)="expandedElement = expandedElement === row ? null : row">
+      ></mat-row>
+      <mat-row *matRowDef="let row; columns: ['expandedDetail']; when: isExpansionDetailRow"
+               [@detailExpand]="row.element == expandedElement ? 'expanded' : 'collapsed'"
+               style="overflow: hidden">
+      </mat-row>
+    </mat-table>
+      <mat-paginator [pageSizeOptions]="[1, 2, 3]"
+                     showFirstLastButtons
+                     aria-label="Select page of periodic elements">
+      </mat-paginator>
+    </div>
   </section>
 </main>

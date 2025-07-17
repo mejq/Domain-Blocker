@@ -12,7 +12,17 @@
 			"architect": {
 				"build": {
 					"builder": "@angular-architects/native-federation:build",
-					"options": {},
+          "options": {
+            "styles": [
+              "node_modules/minireset.css/minireset.css",
+              "node_modules/igniteui-angular/styles/igniteui-angular.css"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "node_modules"
+              ]
+            }
+          },
 					"configurations": {
 						"production": {
 							"target": "mfe2:esbuild:production"
@@ -51,9 +61,15 @@
 							}
 						],
 						"styles": [
-							"src/styles.css"
-						],
-						"scripts": []
+              "src/styles.css",
+              "node_modules/igniteui-angular/styles/igniteui-angular.css"
+            ],
+            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "node_modules"
+              ]
+            }
 					}
 				},
 				"esbuild": {
