@@ -1,0 +1,30 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/domainblockdb
+    username: postgres
+    password: mejo
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        search:
+          backend:
+            directory:
+              type: local-heap
+          analysis:
+            configurer: com.example.demo.config.AnalysisConfigurer
+
+  liquibase:
+    change-log: classpath:db/changelog/changelog-master.xml
+
+ssh:
+  host: 192.168.10.205
+  port: 22
+  user: test
+  private-key-path: /home/test/.ssh/id_rsa

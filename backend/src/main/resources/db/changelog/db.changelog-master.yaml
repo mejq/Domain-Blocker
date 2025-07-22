@@ -1,0 +1,88 @@
+databaseChangeLog:
+  - changeSet:
+      id: blocked-domains-table
+      author: demo
+      preConditions:
+        onFail: MARK_RAN
+        preConditions:
+          - not:
+              tableExists:
+                tableName: blocked_domains
+      changes:
+        - createTable:
+            tableName: blocked_domains
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: domain_name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: applied_by
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: applied_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: blocked-log-table
+      author: demo
+      changes:
+        - createTable:
+            tableName: domain_action_logs
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: blocked_domain_id
+                  type: UUID
+                  constraints:
+                    nullable: true # Domain henüz engellenmeden loglanabilir
+              - column:
+                  name: domain_name
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: action_type
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: message
+                  type: TEXT
+              - column:
+                  name: action_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: acted_by
+                  type: VARCHAR(100)
+        - addForeignKeyConstraint:
+            constraintName: fk_domain_action_logs_blocked_domain_id
+            baseTableName: domain_action_logs
+            baseColumnNames: blocked_domain_id
+            referencedTableName: blocked_domains
+            referencedColumnNames: id
+            onDelete: CASCADE # BlockedDomain silindiğinde ilişkili loglar da silinsin
