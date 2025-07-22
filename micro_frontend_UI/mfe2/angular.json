@@ -58,8 +58,9 @@
 							{
 								"glob": "**/*",
 								"input": "public"
-							}
-						],
+							},
+              "src/assets"
+            ],
 						"styles": [
               "src/styles.css",
               "node_modules/igniteui-angular/styles/igniteui-angular.css"
@@ -87,8 +88,9 @@
 							{
 								"glob": "**/*",
 								"input": "public"
-							}
-						],
+							},
+              "src/assets"
+            ],
 						"styles": [
 							"src/styles.css"
 						],

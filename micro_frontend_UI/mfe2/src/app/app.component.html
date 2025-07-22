@@ -3,40 +3,74 @@
   </header>
   <section class="content">
     <div>
-    <button (click)="loadBlockedDomains()">Refresh Domains</button>
 
-    <mat-table  matSort [dataSource]="dataSource" cdkDropListGroup cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="tableDrop($event)">
+      <button mat-button [matMenuTriggerFor]="menu" class="table-config-menu">
+        <mat-icon class="settingsLogo"></mat-icon>
+        <mat-menu #menu="matMenu">
+          <span class="table-config-menu-label">Edit Columns</span>
+          <div class="table-config-menu-options">
+            <mat-checkbox
+              *ngFor="let cd of columnVisible; let i = index"
+              (click)="$event.stopPropagation()"
+              [(ngModel)]="cd.visible">
+              {{ cd.field }}
+            </mat-checkbox>
+          </div>
+        </mat-menu>
+      </button>
+      <button (click)="loadBlockedDomains()">Refresh Domains</button>
 
-      <ng-container *ngFor="let column of columns; let i = index"  [matColumnDef]="column.field">
+      <mat-form-field [formGroup]="domainForm">
+        <input matInput formControlName="domain" placeholder="Search" (input)="searchDomain()">
+      </mat-form-field>
+      <button (click)="searchDomain()">Search</button>
 
-        <mat-header-cell mat-sort-header *matHeaderCellDef cdkDrag cdkDragLockAxis="x" cdkDragBoundary="mat-header-row">
-          {{column.header1}}
-        </mat-header-cell>
+      <mat-table matSort [dataSource]="dataSource" cdkDropList
+                 cdkDropListOrientation="horizontal"
+                 (cdkDropListDropped)="tableDrop($event)">
 
-        <mat-cell *matCellDef="let row">{{ row[column.field] }}</mat-cell>
+        <ng-container matColumnDef="index">
+          <mat-header-cell *matHeaderCellDef mat-sort-header cdkDrag cdkDragLockAxis="x"
+                           cdkDragBoundary="mat-header-row">No
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row">{{ row.index }}</mat-cell>
+        </ng-container>
 
-      </ng-container>
-      <ng-container matColumnDef="expandedDetail">
-        <mat-cell *matCellDef="let detail">
-          Remove
-        </mat-cell>
-      </ng-container>
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;"
+        <ng-container matColumnDef="domainName">
+          <mat-header-cell *matHeaderCellDef mat-sort-header cdkDrag cdkDragLockAxis="x"
+                           cdkDragBoundary="mat-header-row">Domain
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row">{{ row.domainName }}</mat-cell>
+        </ng-container>
 
-               class="element-row"
-               [class.expanded]="expandedElement == row"
-               (click)="expandedElement = expandedElement === row ? null : row">
-      ></mat-row>
-      <mat-row *matRowDef="let row; columns: ['expandedDetail']; when: isExpansionDetailRow"
-               [@detailExpand]="row.element == expandedElement ? 'expanded' : 'collapsed'"
-               style="overflow: hidden">
-      </mat-row>
-    </mat-table>
+        <ng-container matColumnDef="appliedAt">
+          <mat-header-cell *matHeaderCellDef mat-sort-header cdkDrag cdkDragLockAxis="x"
+                           cdkDragBoundary="mat-header-row">Applied At
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row">{{ row.appliedAt }}</mat-cell>
+        </ng-container>
+
+
+        <mat-header-row *matHeaderRowDef="getDisplayedColumns()"></mat-header-row>
+        <mat-row *matRowDef="let row; columns:getDisplayedColumns()
+        ;" (click)="selection.toggle(row)"
+                 [ngClass]="{'highlightTableColor': selection.isSelected(row)}">
+        </mat-row>
+      </mat-table>
+
       <mat-paginator [pageSizeOptions]="[1, 2, 3]"
                      showFirstLastButtons
                      aria-label="Select page of periodic elements">
       </mat-paginator>
+
+
+      <div style="display: flex; align-items: center; gap: 10px; margin: 10px 0;">
+        <mat-checkbox (change)="masterToggle()" [checked]="isAllSelected()">
+          Select All
+        </mat-checkbox>
+        <button type="button" (click)="domainSelection()">Remove</button>
+      </div>
+
     </div>
   </section>
 </main>

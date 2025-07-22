@@ -118,3 +118,18 @@ p {
   border-radius: 4px;
   font-weight: 600;
 }
+
+.highlightTableColor{
+  background-color: burlywood;
+}
+
+
+settingsLogo{
+  width: 32px;
+  height: 32px;
+  color: white;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+
