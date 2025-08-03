@@ -50,13 +50,11 @@ export class AppComponent implements OnInit, AfterViewInit {
     const visibleCols = this.getDisplayedColumns(); // görünür sütunları aldık
     moveItemInArray(visibleCols, event.previousIndex, event.currentIndex); // sürükleme sırasını uyg
 
-    let visibleIndex = 0;
-    this.columns = this.columns.map(col => {
-      const isVisible = this.columnVisible.find(c => c.field === col)?.visible; // this.columnsta sadece görünürlerin yerını değiştirdik
-
-      if (isVisible) {
-        return visibleCols[visibleIndex++];
-      }
+    let i = 0;
+    this.columns = this.columns.map(col =>
+    {
+      const isVisible = this.columnVisible.find(column => column.field === col)?.visible; // this.columnsta sadece görünürlerin yerını değiştirdik
+      if (isVisible) { return visibleCols[i++]; }
       return col;
     });
   }
@@ -140,8 +138,6 @@ export class AppComponent implements OnInit, AfterViewInit {
       }
     });
   }
-
-
 
   isAllSelected() {
     const numSelected = this.selection.selected.length;

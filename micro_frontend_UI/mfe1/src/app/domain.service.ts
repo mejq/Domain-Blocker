@@ -12,7 +12,7 @@ export interface BlockedDomain {
   providedIn: 'root' //s
 })
 export class DomainBlockService {
-  private apiUrl = 'http://localhost:8080/api/domain-block';
+  private apiUrl = 'http://localhost:8080/api/domain-block/block';
   constructor(private http: HttpClient) {}
 
   blockDomains(domains: string[]): Observable<any> {

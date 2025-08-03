@@ -20,7 +20,7 @@ export class DomainBlockService {
   }
 
   searchBlockedDomains(search: string): Observable<BlockedDomain[]> {
-    const url = `${this.apiUrl}/Search?search=${encodeURIComponent(search)}`;
+    const url = `${this.apiUrl}/search?search=${encodeURIComponent(search)}`;
     console.log('API URL:', url);
     return this.http.get<BlockedDomain[]>(url);
   }
@@ -29,7 +29,7 @@ export class DomainBlockService {
     if (!domain || !domain.domainName) {
       console.error('Silme işlemi için domain bilgisi eksik:', domain);
     }
-    const url = `${this.apiUrl}/delete/${domain.domainName}`;
+    const url = `${this.apiUrl}/unblock/${domain.domainName}`;
     console.log('DELETE URL:', url);
     return this.http.delete(url, {responseType: 'text'});
   }
