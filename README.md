@@ -16,7 +16,7 @@ Highlights & Key Features
     Operational Monitoring: Integrated with Spring Actuator for health and performance metrics, supported by centralized request logging and robust Global Exception Handling.
 
 Component,Key Technologies
-Frontend,"Angular 19, Reactive Forms"
-Backend,"Spring Boot, JSch (for SSH), REST API"
-Database,"PostgreSQL, Hibernate (JPA), Liquibase"
-Deployment,"Docker, Docker Compose"
+ - Frontend,"Angular 19, Reactive Forms"
+ - Backend,"Spring Boot, JSch (for SSH), REST API"
+ - Database,"PostgreSQL, Hibernate (JPA), Liquibase"
+ - Deployment,"Docker, Docker Compose"
